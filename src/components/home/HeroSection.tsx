@@ -31,7 +31,7 @@ export function HeroSection() {
               >
                 <source src="/videos/hero.mp4" type="video/mp4" />
                 <div className="w-full aspect-video bg-gradient-to-br from-forest-800 to-moss-600 flex items-center justify-center text-white/50">
-                  您的浏览器不支持视频播放
+                  Your browser cannot play this video.
                 </div>
               </video>
             </div>

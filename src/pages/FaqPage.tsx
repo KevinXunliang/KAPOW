@@ -217,7 +217,6 @@ const faqs: FaqItem[] = [
 // ============================================================
 export function FaqPage() {
   const [activeCategory, setActiveCategory] = useState<FaqCategory>('All');
-  const [searchQuery, setSearchQuery] = useState('');
   const [openId, setOpenId] = useState<number | null>(faqs[0].id);
 
   // 筛选逻辑
@@ -225,13 +224,9 @@ export function FaqPage() {
     return faqs.filter((faq) => {
       const matchesCategory =
         activeCategory === 'All' || faq.category === activeCategory;
-      const matchesSearch =
-        searchQuery.trim() === '' ||
-        faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        faq.answer.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesCategory && matchesSearch;
+      return matchesCategory;
     });
-  }, [activeCategory, searchQuery]);
+  }, [activeCategory]);
 
   const toggleOpen = (id: number) => {
     setOpenId(openId === id ? null : id);
@@ -240,7 +235,7 @@ export function FaqPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-16 overflow-hidden gradient-mesh bg-cream-100">
+      <section className="relative pt-44 pb-16 overflow-hidden gradient-mesh bg-cream-100">
         <div className="absolute top-1/4 -left-20 w-72 h-72 rounded-full bg-moss-200/30 blur-3xl" />
         <div className="absolute bottom-0 -right-20 w-96 h-96 rounded-full bg-terracotta-200/20 blur-3xl" />
 
@@ -278,33 +273,12 @@ export function FaqPage() {
       {/* 搜索与筛选 */}
       <section className="py-12 bg-cream-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* 搜索框 */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="relative max-w-xl mx-auto mb-8"
-          >
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-forest-300 pointer-events-none" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search for answers..."
-              className="
-                w-full pl-12 pr-4 py-3.5 rounded-xl border border-sage-200 bg-white
-                text-forest-800 placeholder-forest-300
-                focus:outline-none focus:ring-2 focus:ring-moss-400 focus:border-transparent
-                transition-all duration-200
-              "
-            />
-          </motion.div>
 
           {/* 分类筛选 */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.3 }}
             className="flex flex-wrap gap-2 justify-center"
           >
             {faqCategories.map((cat) => {
@@ -336,24 +310,21 @@ export function FaqPage() {
       <section className="py-16 bg-cream-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* 结果统计 */}
-          <div className="mb-6 flex items-center justify-between text-sm text-forest-400">
-            <span>
-              Showing <strong className="text-forest-700">{filteredFaqs.length}</strong>{' '}
-              {filteredFaqs.length === 1 ? 'answer' : 'answers'}
-              {activeCategory !== 'All' && ` in ${activeCategory}`}
-            </span>
-            {(activeCategory !== 'All' || searchQuery) && (
-              <button
-                onClick={() => {
-                  setActiveCategory('All');
-                  setSearchQuery('');
-                }}
-                className="text-moss-600 hover:text-moss-700 font-medium transition-colors"
-              >
-                Clear filters
-              </button>
-            )}
-          </div>
+<div className="mb-6 flex items-center justify-between text-sm text-forest-400">
+  <span>
+    Showing <strong className="text-forest-700">{filteredFaqs.length}</strong>{' '}
+    {filteredFaqs.length === 1 ? 'answer' : 'answers'}
+    {activeCategory !== 'All' && ` in ${activeCategory}`}
+  </span>
+  {activeCategory !== 'All' && (
+    <button
+      onClick={() => setActiveCategory('All')}
+      className="text-moss-600 hover:text-moss-700 font-medium transition-colors"
+    >
+      Clear filter
+    </button>
+  )}
+</div>
 
           {/* FAQ 列表 */}
           {filteredFaqs.length === 0 ? (
@@ -527,12 +498,12 @@ function EmptyState() {
       className="text-center py-16"
     >
       <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-sage-100 mb-5">
-        <Search className="w-8 h-8 text-forest-300" />
+        <MessageCircle className="w-8 h-8 text-forest-300" />
       </div>
-      <h3 className="font-bold text-lg text-forest-800 mb-2">No results found</h3>
+      <h3 className="font-bold text-lg text-forest-800 mb-2">No answers here yet</h3>
       <p className="text-sm text-forest-500 mb-6 max-w-sm mx-auto">
-        We couldn't find any answers matching your search. Try different keywords or
-        browse our categories.
+        We don't have any answers in this category yet. Try another category or
+        contact our team directly.
       </p>
       <a
         href="/contact"

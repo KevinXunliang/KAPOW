@@ -30,7 +30,7 @@ export function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-20 overflow-hidden gradient-mesh bg-cream-100">
+      <section className="relative pt-44 pb-20 overflow-hidden gradient-mesh bg-cream-100">
         <div className="absolute top-1/4 -left-20 w-72 h-72 rounded-full bg-moss-200/30 blur-3xl" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.span

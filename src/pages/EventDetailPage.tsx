@@ -57,17 +57,6 @@ export function EventDetailPage() {
         {/* 深色遮罩 */}
         <div className="absolute inset-0 bg-gradient-to-t from-forest-900/70 via-forest-900/20 to-transparent" />
 
-        {/* 返回按钮 */}
-        <div className="absolute top-28 left-4 sm:left-8 z-10">
-          <Link
-            to="/events"
-            className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors text-sm font-medium bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            All Events
-          </Link>
-        </div>
-
         {/* 内容 */}
         <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-16">
           <motion.div
@@ -108,24 +97,12 @@ export function EventDetailPage() {
             </p>
 
             {/* 时间和 CTA */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-              <div className="inline-flex items-center gap-2 text-sm text-white/80 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
-                <Clock className="w-4 h-4" />
-                <span>
-                  {startDate} — {endDate}
-                </span>
-              </div>
-
-              {event.status !== 'ended' && (
-                <Link
-                  to={event.ctaLink}
-                  className="inline-flex items-center gap-2 bg-white text-forest-800 hover:bg-cream-100 font-semibold py-3 px-6 rounded-xl transition-all shadow-lg"
-                >
-                  {event.ctaLabel}
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              )}
-            </div>
+            <div className="inline-flex items-center gap-2 text-sm text-white/80 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
+  <Clock className="w-4 h-4" />
+  <span>
+    {startDate} — {endDate}
+  </span>
+</div>
           </motion.div>
         </div>
       </section>

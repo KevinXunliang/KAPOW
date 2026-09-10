@@ -39,7 +39,7 @@ export function EventsPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-16 overflow-hidden gradient-mesh bg-cream-100">
+      <section className="relative pt-44 pb-16 overflow-hidden gradient-mesh bg-cream-100">
         <div className="absolute top-1/4 -left-20 w-72 h-72 rounded-full bg-moss-200/30 blur-3xl" />
         <div className="absolute bottom-0 -right-20 w-96 h-96 rounded-full bg-terracotta-200/20 blur-3xl" />
 
@@ -156,9 +156,9 @@ function EventCard({ event, index }: { event: typeof events[0]; index: number })
       transition={{ duration: 0.4, delay: index * 0.05 }}
     >
       <Link
-        to={`/events/${event.slug}`}
-        className="group block relative h-[420px] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
-      >
+  to={`/events/${event.slug}`}
+  className="group block relative aspect-[4/5] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+>
         {/* 背景 */}
         <div
           className="absolute inset-0 transition-transform duration-700 group-hover:scale-110"

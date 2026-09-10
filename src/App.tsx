@@ -14,6 +14,7 @@ import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { TermsOfServicePage } from './pages/TermsOfServicePage';
 import { AgePolicyPage } from './pages/AgePolicyPage';
 import { WarrantyPolicyPage } from './pages/WarrantyPolicyPage';
+import { BlogDetailPage } from './pages/BlogDetailPage';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/product/kapow-85k" element={<ProductPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogDetailPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/verification" element={<VerificationPage />} />
           <Route path="/faq" element={<FaqPage />} />

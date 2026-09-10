@@ -8,6 +8,7 @@ import { WarningBanner } from './WarningBanner';
 import { ScrollToTopButton } from './ScrollToTopButton';
 import { NavbarThemeProvider } from '@/context/NavbarThemeContext';
 import { EventWidget } from './EventWidget';
+import { Breadcrumbs } from './Breadcrumbs';
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
@@ -16,6 +17,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <ScrollToTop />
       <AgeGate />
       <Navbar />
+      <Breadcrumbs />
       <main className="min-h-screen">{children}</main>
       <Footer />
       <ScrollToTopButton />

@@ -2,27 +2,40 @@
 
 import { HeroSection, MissionStrip } from '@/components/home/HeroSection';
 import { BannerCarousel } from '@/components/home/BannerCarousel';
+import { FeaturedEventSection } from '@/components/home/FeaturedEventSection';
 import { ProductSpotlightSection } from '@/components/home/ProductSpotlightSection';
 import { FeaturesSection } from '@/components/home/FeaturesSection';
-import { BrandStorySection } from '@/components/home/BrandStorySection';
-import { EcoNarrativeSection } from '@/components/home/EcoNarrativeSection';
-import { SceneGallerySection } from '@/components/home/SceneGallerySection'; // ← 新导入
+import {
+  BrandStorySection,
+  StatsStrip,
+  BrandPillarsSection,
+} from '@/components/home/BrandStorySection';
+import { EcoCommitmentSection } from '@/components/home/EcoCommitmentSection';
+import { SceneGallerySection } from '@/components/home/SceneGallerySection';
 import { BlogTeaserSection } from '@/components/home/BlogTeaserSection';
-import { SubscribeSection } from '@/components/home/SubscribeSection'; 
-import { FeaturedEventSection } from '@/components/home/FeaturedEventSection'; // ← 新导入
+import { SubscribeSection } from '@/components/home/SubscribeSection';
 
 export function HomePage() {
   return (
     <>
+      {/* 首屏 */}
       <BannerCarousel />
       <HeroSection />
       <MissionStrip />
-      <FeaturedEventSection />  {/* ← 新增 */}
+
+      {/* 活动与产品 */}
+      <FeaturedEventSection />
       <ProductSpotlightSection />
       <FeaturesSection />
+
+      {/* 品牌故事线 */}
       <BrandStorySection />
-      <EcoNarrativeSection />
-      <SceneGallerySection />    {/* ← 替换 SpecsSection */}
+      <StatsStrip />
+      <BrandPillarsSection />
+      <EcoCommitmentSection />
+
+      {/* 生活场景与内容 */}
+      <SceneGallerySection />
       <BlogTeaserSection />
       <SubscribeSection />
     </>

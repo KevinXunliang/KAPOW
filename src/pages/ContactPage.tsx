@@ -116,7 +116,7 @@ export function ContactPage() {
 
   return (
     <>
-      <section className="pt-32 pb-12 bg-cream-100 gradient-mesh">
+      <section className="pt-44 pb-12 bg-cream-100 gradient-mesh">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <SectionHeading
             eyebrow="Get in Touch"

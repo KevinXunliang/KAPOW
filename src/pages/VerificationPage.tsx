@@ -113,7 +113,7 @@ export function VerificationPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-16 overflow-hidden gradient-mesh bg-cream-100">
+      <section className="relative pt-44 pb-16 overflow-hidden gradient-mesh bg-cream-100">
         <div className="absolute top-1/4 -left-20 w-72 h-72 rounded-full bg-moss-200/30 blur-3xl" />
         <div className="absolute bottom-0 -right-20 w-96 h-96 rounded-full bg-terracotta-200/20 blur-3xl" />
 
