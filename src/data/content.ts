@@ -263,10 +263,30 @@ export const blogPosts: BlogPost[] = [
   },
 ];
 
-export const navLinks = [
+export type NavLink = {
+  label: string;
+  path?: string;
+  children?: NavLink[];
+};
+
+export const navLinks: NavLink[] = [
   { label: 'Home', path: '/' },
-  { label: 'Product', path: '/product/kapow-85k' },
-  { label: 'Our Story', path: '/about' },
-  { label: 'Blog', path: '/blog' },
-  { label: 'Contact', path: '/contact' },
+  {
+    label: 'Product',
+    path: '/product/kapow-85k',
+    children: [
+      { label: 'KAPOW 85K', path: '/product/kapow-85k' },
+      { label: 'Discover More', path: '/product' },
+    ],
+  },
+  { label: 'About Us', path: '/about' },
+  {
+    label: 'Support',
+    children: [
+      { label: 'Verification', path: '/verification' },
+      { label: 'FAQs', path: '/faqs' },
+      { label: 'Contact Us', path: '/contact' },
+      { label: 'Download', path: '/download' },
+    ],
+  },
 ];
