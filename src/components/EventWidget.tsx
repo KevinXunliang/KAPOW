@@ -41,7 +41,7 @@ export function EventWidget() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.5, y: 20 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed bottom-24 right-10 z-40 hidden lg:block group"
+          className="fixed bottom-[112px] right-10 z-40 hidden lg:block group"
         >
           {/* 关闭按钮 */}
           <button
@@ -60,12 +60,12 @@ export function EventWidget() {
             <X className="w-2.5 h-2.5" />
           </button>
 
-          {/* 圆形按钮主体 */}
+          {/* 圆形按钮主体 - 与Back To Top按钮尺寸一致 */}
           <Link
             to={`/events/${event.slug}`}
             className="
               relative block
-              w-16 h-16 rounded-full
+              w-14 h-14 rounded-full
               overflow-hidden
               shadow-lg shadow-forest-900/20
               hover:shadow-xl hover:shadow-forest-900/30

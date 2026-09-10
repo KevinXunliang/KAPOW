@@ -43,7 +43,7 @@ export function ScrollToTopButton() {
           onClick={scrollToTop}
           className="fixed bottom-10 right-10 z-50 group"
           style={{ width: ringSize, height: ringSize }}
-          aria-label="回到顶部"
+          aria-label="Back To Top"
         >
           {/* 整个按钮容器的悬停变换 - 环和按钮一起动 */}
           <div className="w-full h-full transition-all duration-300 group-hover:-translate-y-0.5 group-hover:scale-105">
@@ -116,7 +116,7 @@ export function ScrollToTopButton() {
               whitespace-nowrap
             "
           >
-            回到顶部
+            Back To Top
           </div>
         </motion.button>
       )}
