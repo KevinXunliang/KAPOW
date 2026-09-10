@@ -37,3 +37,11 @@
     scrollbar-width: none;
   }
 }
+
+/* 政策正文样式 */
+.policy-content strong {
+  @apply text-forest-800 font-semibold;
+}
+.policy-content a {
+  @apply text-moss-600 hover:text-moss-700 underline underline-offset-2 transition-colors;
+}

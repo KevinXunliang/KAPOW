@@ -140,14 +140,17 @@ export function Footer() {
               © 2026 KAPOW. All rights reserved.
             </p>
             <div className="flex items-center gap-4 text-xs text-cream-100/50">
-              <a href="#" className="hover:text-moss-300 transition-colors">
+              <a href="/privacy-policy" className="hover:text-moss-300 transition-colors">
                 Privacy Policy
               </a>
-              <a href="#" className="hover:text-moss-300 transition-colors">
+              <a href="/terms-of-service" className="hover:text-moss-300 transition-colors">
                 Terms of Service
               </a>
-              <a href="#" className="hover:text-moss-300 transition-colors">
+              <a href="/age-policy" className="hover:text-moss-300 transition-colors">
                 Age Policy
+              </a>
+              <a href="/warranty-policy" className="hover:text-moss-300 transition-colors">
+                Warranty Policy
               </a>
             </div>
           </div>

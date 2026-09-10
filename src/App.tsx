@@ -10,6 +10,10 @@ import { FaqPage } from '@/pages/FaqPage';
 import { DownloadPage } from '@/pages/DownloadPage';
 import { EventsPage } from '@/pages/EventsPage';
 import { EventDetailPage } from '@/pages/EventDetailPage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import { TermsOfServicePage } from './pages/TermsOfServicePage';
+import { AgePolicyPage } from './pages/AgePolicyPage';
+import { WarrantyPolicyPage } from './pages/WarrantyPolicyPage';
 
 
 function App() {
@@ -27,6 +31,10 @@ function App() {
           <Route path="/download" element={<DownloadPage />} />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/events/:slug" element={<EventDetailPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+          <Route path="/age-policy" element={<AgePolicyPage />} />
+          <Route path="/warranty-policy" element={<WarrantyPolicyPage />} />
           <Route path="*" element={<HomePage />} />
         </Routes>
       </Layout>
