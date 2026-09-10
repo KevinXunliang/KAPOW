@@ -9,6 +9,7 @@ import { EcoNarrativeSection } from '@/components/home/EcoNarrativeSection';
 import { SceneGallerySection } from '@/components/home/SceneGallerySection'; // ← 新导入
 import { BlogTeaserSection } from '@/components/home/BlogTeaserSection';
 import { SubscribeSection } from '@/components/home/SubscribeSection'; 
+import { FeaturedEventSection } from '@/components/home/FeaturedEventSection'; // ← 新导入
 
 export function HomePage() {
   return (
@@ -16,6 +17,7 @@ export function HomePage() {
       <BannerCarousel />
       <HeroSection />
       <MissionStrip />
+      <FeaturedEventSection />  {/* ← 新增 */}
       <ProductSpotlightSection />
       <FeaturesSection />
       <BrandStorySection />

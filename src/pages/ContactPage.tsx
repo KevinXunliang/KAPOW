@@ -1,7 +1,18 @@
+// src/pages/ContactPage.tsx
+
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, MapPin, Leaf, Send, CheckCircle, Instagram, Facebook } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Mail,
+  MapPin,
+  Leaf,
+  Send,
+  CheckCircle,
+  AlertCircle,
+  Instagram,
+  Facebook,
+} from 'lucide-react';
 import { SectionHeading, Reveal } from '@/components/SectionHeading';
 
 function TikTokIcon({ className }: { className?: string }) {
@@ -22,13 +33,86 @@ function XIcon({ className }: { className?: string }) {
 
 export function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  });
+  // 记录每个字段的错误信息
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const subjects = ['General Inquiry', 'Wholesale', 'Press', 'Sustainability Partnership'];
+
+  // 邮箱验证规则
+  const isValidEmail = (email: string): boolean => {
+    const trimmed = email.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(trimmed);
+  };
+
+  // 更新表单字段
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // 输入时清除该字段的错误
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  // 验证整个表单
+  const validateForm = (): boolean => {
+    const newErrors: Record<string, string> = {};
+
+    // 姓名
+    if (!formData.name.trim()) {
+      newErrors.name = 'Please enter your name.';
+    }
+
+    // 邮箱 - 空值
+    if (!formData.email.trim()) {
+      newErrors.email = 'Please enter your email address.';
+    }
+    // 邮箱 - 缺少 @
+    else if (!formData.email.includes('@')) {
+      newErrors.email = 'Please include an "@" in the email address.';
+    }
+    // 邮箱 - 格式不完整
+    else if (!isValidEmail(formData.email)) {
+      newErrors.email = 'Please enter a complete email address (e.g., name@domain.com).';
+    }
+
+    // 主题
+    if (!formData.subject) {
+      newErrors.subject = 'Please select a subject.';
+    }
+
+    // 消息
+    if (!formData.message.trim()) {
+      newErrors.message = 'Please enter your message.';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
     setSubmitted(true);
   };
 
-  const subjects = ['General Inquiry', 'Wholesale', 'Press', 'Sustainability Partnership'];
+  const handleReset = () => {
+    setSubmitted(false);
+    setFormData({ name: '', email: '', subject: '', message: '' });
+    setErrors({});
+  };
 
   return (
     <>
@@ -45,7 +129,7 @@ export function ContactPage() {
       <section className="py-16 bg-cream-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-5 gap-8">
-            {/* Form */}
+            {/* 表单 */}
             <Reveal className="lg:col-span-3">
               <div className="bg-white rounded-3xl border border-sage-200 p-8 sm:p-10">
                 {submitted ? (
@@ -62,63 +146,120 @@ export function ContactPage() {
                       Thanks for reaching out. We'll get back to you soon.
                     </p>
                     <button
-                      onClick={() => setSubmitted(false)}
+                      onClick={handleReset}
                       className="text-sm font-semibold text-moss-600 hover:text-moss-700"
                     >
                       Send another message
                     </button>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
+                  <form onSubmit={handleSubmit} noValidate className="space-y-5">
                     <div className="grid sm:grid-cols-2 gap-5">
-                      <Field label="Name" htmlFor="name">
+                      {/* 姓名 */}
+                      <Field
+                        label="Name"
+                        htmlFor="name"
+                        error={errors.name}
+                      >
                         <input
                           id="name"
                           name="name"
                           type="text"
-                          required
-                          className="w-full px-4 py-3 rounded-xl border border-sage-200 bg-cream-50 text-forest-800 placeholder-forest-300 focus:outline-none focus:ring-2 focus:ring-moss-400 focus:border-transparent transition-all"
+                          value={formData.name}
+                          onChange={handleChange}
+                          className={`
+                            w-full px-4 py-3 rounded-xl border bg-cream-50 text-forest-800
+                            placeholder-forest-300 focus:outline-none focus:ring-2 focus:border-transparent
+                            transition-all duration-200
+                            ${errors.name
+                              ? 'border-rose-400 focus:ring-rose-400/60'
+                              : 'border-sage-200 focus:ring-moss-400'
+                            }
+                          `}
                           placeholder="Your name"
                         />
                       </Field>
-                      <Field label="Email" htmlFor="email">
+
+                      {/* 邮箱 */}
+                      <Field
+                        label="Email"
+                        htmlFor="email"
+                        error={errors.email}
+                      >
                         <input
                           id="email"
                           name="email"
                           type="email"
-                          required
-                          className="w-full px-4 py-3 rounded-xl border border-sage-200 bg-cream-50 text-forest-800 placeholder-forest-300 focus:outline-none focus:ring-2 focus:ring-moss-400 focus:border-transparent transition-all"
+                          value={formData.email}
+                          onChange={handleChange}
+                          className={`
+                            w-full px-4 py-3 rounded-xl border bg-cream-50 text-forest-800
+                            placeholder-forest-300 focus:outline-none focus:ring-2 focus:border-transparent
+                            transition-all duration-200
+                            ${errors.email
+                              ? 'border-rose-400 focus:ring-rose-400/60'
+                              : 'border-sage-200 focus:ring-moss-400'
+                            }
+                          `}
                           placeholder="you@example.com"
                         />
                       </Field>
                     </div>
 
-                    <Field label="Subject" htmlFor="subject">
+                    {/* 主题 */}
+                    <Field
+                      label="Subject"
+                      htmlFor="subject"
+                      error={errors.subject}
+                    >
                       <select
                         id="subject"
                         name="subject"
-                        required
-                        className="w-full px-4 py-3 rounded-xl border border-sage-200 bg-cream-50 text-forest-800 focus:outline-none focus:ring-2 focus:ring-moss-400 focus:border-transparent transition-all"
-                        defaultValue=""
+                        value={formData.subject}
+                        onChange={handleChange}
+                        className={`
+                          w-full px-4 py-3 rounded-xl border bg-cream-50 text-forest-800
+                          focus:outline-none focus:ring-2 focus:border-transparent
+                          transition-all duration-200
+                          ${errors.subject
+                            ? 'border-rose-400 focus:ring-rose-400/60'
+                            : 'border-sage-200 focus:ring-moss-400'
+                          }
+                          ${!formData.subject ? 'text-forest-300' : ''}
+                        `}
                       >
                         <option value="" disabled>
                           Select a subject
                         </option>
                         {subjects.map((s) => (
-                          <option key={s} value={s}>
+                          <option key={s} value={s} className="text-forest-800">
                             {s}
                           </option>
                         ))}
                       </select>
                     </Field>
 
-                    <Field label="Message" htmlFor="message">
+                    {/* 消息 */}
+                    <Field
+                      label="Message"
+                      htmlFor="message"
+                      error={errors.message}
+                    >
                       <textarea
                         id="message"
                         name="message"
-                        required
                         rows={5}
-                        className="w-full px-4 py-3 rounded-xl border border-sage-200 bg-cream-50 text-forest-800 placeholder-forest-300 focus:outline-none focus:ring-2 focus:ring-moss-400 focus:border-transparent transition-all resize-none"
+                        value={formData.message}
+                        onChange={handleChange}
+                        className={`
+                          w-full px-4 py-3 rounded-xl border bg-cream-50 text-forest-800
+                          placeholder-forest-300 focus:outline-none focus:ring-2 focus:border-transparent
+                          transition-all duration-200 resize-none
+                          ${errors.message
+                            ? 'border-rose-400 focus:ring-rose-400/60'
+                            : 'border-sage-200 focus:ring-moss-400'
+                          }
+                        `}
                         placeholder="Tell us what's on your mind..."
                       />
                     </Field>
@@ -135,10 +276,10 @@ export function ContactPage() {
               </div>
             </Reveal>
 
-            {/* Sidebar */}
+            {/* 侧边栏 */}
             <Reveal delay={0.1} className="lg:col-span-2">
               <div className="space-y-6">
-                {/* Contact info */}
+                {/* 联系信息 */}
                 <div className="bg-white rounded-3xl border border-sage-200 p-6">
                   <h3 className="font-bold text-forest-800 mb-4">Connect With Us</h3>
                   <div className="space-y-3">
@@ -153,7 +294,7 @@ export function ContactPage() {
                   </div>
                 </div>
 
-                {/* Social */}
+                {/* 社交 */}
                 <div className="bg-white rounded-3xl border border-sage-200 p-6">
                   <h3 className="font-bold text-forest-800 mb-4">Follow KAPOW</h3>
                   <div className="flex gap-3">
@@ -195,13 +336,18 @@ export function ContactPage() {
   );
 }
 
+// ============================================================
+// 字段包装组件 - 支持错误提示
+// ============================================================
 function Field({
   label,
   htmlFor,
+  error,
   children,
 }: {
   label: string;
   htmlFor: string;
+  error?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -210,6 +356,23 @@ function Field({
         {label}
       </label>
       {children}
+
+      {/* 错误提示 */}
+      <AnimatePresence>
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: -4, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: 'auto' }}
+            exit={{ opacity: 0, y: -4, height: 0 }}
+            className="overflow-hidden"
+          >
+            <div className="mt-2 flex items-center gap-1.5 text-xs text-rose-600">
+              <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+              <span>{error}</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -1,6 +1,8 @@
+// src/components/Footer.tsx
+
 import { Link } from 'react-router-dom';
 import { Instagram, Facebook, Leaf } from 'lucide-react';
-import { navLinks } from '@/data/content';
+import { navLinks, type NavLink } from '@/data/content';
 
 function TikTokIcon({ className }: { className?: string }) {
   return (
@@ -18,13 +20,55 @@ function XIcon({ className }: { className?: string }) {
   );
 }
 
+// ============================================================
+// 从 navLinks 派生 Footer 列
+// 有 children 的导航项 → 独立一列（用 label 作标题，children 作链接）
+// 无 children 的导航项 → 汇总到 "Company" 列
+// ============================================================
+function getFooterColumns(): { title: string; links: { label: string; path: string }[] }[] {
+  const columns: { title: string; links: { label: string; path: string }[] }[] = [];
+
+  // 有子菜单的导航项 → 独立列
+  navLinks.forEach((link: NavLink) => {
+    if (link.children && link.children.length > 0) {
+      columns.push({
+        title: link.label,
+        links: link.children.map((child) => ({
+          label: child.label,
+          path: child.path || '#',
+        })),
+      });
+    }
+  });
+
+  // 无子菜单的导航项 → 归入 "Company" 列
+  const standaloneLinks = navLinks
+    .filter((link: NavLink) => !link.children || link.children.length === 0)
+    .filter((link: NavLink) => link.path !== '/') // 排除 "Home" 
+    .map((link: NavLink) => ({
+      label: link.label,
+      path: link.path || '#',
+    }));
+
+  if (standaloneLinks.length > 0) {
+    columns.push({
+      title: 'Company',
+      links: standaloneLinks,
+    });
+  }
+
+  return columns;
+}
+
 export function Footer() {
+  const footerColumns = getFooterColumns();
+
   return (
     <footer className="bg-forest-900 text-cream-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top section */}
-        <div className="py-16 grid gap-12 lg:grid-cols-4">
-          {/* Brand */}
+        {/* 顶部区域 */}
+        <div className="py-16 grid gap-12 lg:grid-cols-5">
+          {/* 品牌区（占 2 列） */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-4">
               <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-moss-500 text-cream-50 font-bold text-sm">
@@ -32,12 +76,15 @@ export function Footer() {
               </span>
               <span className="font-bold text-xl tracking-tight">KAPOW</span>
             </Link>
-            <p className="text-cream-100/70 text-sm leading-relaxed max-w-md">
+
+            <p className="text-cream-100/70 text-sm leading-relaxed max-w-md mb-6">
               Pure flavour. Zero nicotine. Zero compromise. KAPOW is an eco-conscious,
               wellness-forward disposable vape designed for those who choose clean enjoyment
               without compromise.
             </p>
-            <div className="mt-6 flex items-center gap-3">
+
+            {/* 社交图标 */}
+            <div className="flex items-center gap-3">
               {[
                 { Icon: Instagram, label: 'Instagram' },
                 { Icon: TikTokIcon, label: 'TikTok' },
@@ -56,49 +103,52 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick links */}
-          <div>
-            <h3 className="font-semibold text-sm tracking-wide uppercase text-cream-100/90 mb-4">
-              Explore
-            </h3>
-            <ul className="space-y-2.5">
-              {navLinks.map((link) => (
-                <li key={link.path}>
-                  <Link
-                    to={link.path}
-                    className="text-sm text-cream-100/70 hover:text-moss-300 transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Pledge */}
-          <div>
-            <h3 className="font-semibold text-sm tracking-wide uppercase text-cream-100/90 mb-4">
-              Our Pledge
-            </h3>
-            <div className="inline-flex items-start gap-2 text-sm text-cream-100/70 leading-relaxed">
-              <Leaf className="w-4 h-4 mt-0.5 text-moss-400 shrink-0" />
-              <p>
-                KAPOW is committed to a cleaner, greener future — one puff at a time.
-              </p>
+          {/* 导航列（自动从 navLinks 派生） */}
+          {footerColumns.map((column) => (
+            <div key={column.title}>
+              <h3 className="font-semibold text-sm tracking-wide uppercase text-cream-100/90 mb-4">
+                {column.title}
+              </h3>
+              <ul className="space-y-2.5">
+                {column.links.map((link) => (
+                  <li key={`${column.title}-${link.label}`}>
+                    <Link
+                      to={link.path}
+                      className="text-sm text-cream-100/70 hover:text-moss-300 transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
+          ))}
+        </div>
+
+        {/* 品牌承诺条 */}
+        <div className="border-t border-forest-800 py-6">
+          <div className="flex items-center justify-center gap-2 text-sm text-cream-100/70">
+            <Leaf className="w-4 h-4 text-moss-400 shrink-0" />
+            <p>KAPOW is committed to a cleaner, greener future — one puff at a time.</p>
           </div>
         </div>
 
-        {/* Bottom bar */}
+        {/* 底部版权信息 */}
         <div className="border-t border-forest-800 py-8 space-y-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-xs text-cream-100/50">
-              &copy; 2025 KAPOW. All rights reserved.
+              © 2026 KAPOW. All rights reserved.
             </p>
             <div className="flex items-center gap-4 text-xs text-cream-100/50">
-              <a href="#" className="hover:text-moss-300 transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-moss-300 transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-moss-300 transition-colors">Age Policy</a>
+              <a href="#" className="hover:text-moss-300 transition-colors">
+                Privacy Policy
+              </a>
+              <a href="#" className="hover:text-moss-300 transition-colors">
+                Terms of Service
+              </a>
+              <a href="#" className="hover:text-moss-300 transition-colors">
+                Age Policy
+              </a>
             </div>
           </div>
         </div>

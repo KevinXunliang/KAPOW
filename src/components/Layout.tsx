@@ -7,6 +7,7 @@ import { ScrollToTop } from './ScrollToTop';
 import { WarningBanner } from './WarningBanner';
 import { ScrollToTopButton } from './ScrollToTopButton';
 import { NavbarThemeProvider } from '@/context/NavbarThemeContext';
+import { EventWidget } from './EventWidget';
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
@@ -18,6 +19,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <main className="min-h-screen">{children}</main>
       <Footer />
       <ScrollToTopButton />
+      <EventWidget />
     </NavbarThemeProvider>
   );
 }

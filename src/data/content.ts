@@ -279,12 +279,13 @@ export const navLinks: NavLink[] = [
       { label: 'Discover More', path: '/product' },
     ],
   },
+  { label: 'Events', path: '/events' },
   { label: 'About Us', path: '/about' },
   {
     label: 'Support',
     children: [
       { label: 'Verification', path: '/verification' },
-      { label: 'FAQs', path: '/faqs' },
+      { label: 'FAQs', path: '/faq' },
       { label: 'Contact Us', path: '/contact' },
       { label: 'Download', path: '/download' },
     ],
