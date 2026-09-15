@@ -13,7 +13,7 @@ export function AgePolicyPage() {
     <PolicyLayout
       title="Age Policy & Marketing Standards"
       subtitle="Our commitment to responsible marketing and age-gated access."
-      lastUpdated="September 10, 2026"
+      lastUpdated="September 15, 2026"
       icon={<ShieldAlert className="w-8 h-8" />}
     >
       <PolicyCallout variant="warning">
@@ -34,9 +34,7 @@ export function AgePolicyPage() {
       </PolicySection>
 
       <PolicySection number="02" title="Age Verification">
-        <p>
-          We employ the following measures to prevent underage access:
-        </p>
+        <p>We employ the following measures to prevent underage access:</p>
         <PolicyList
           items={[
             'A mandatory age gate on first visit to our website',
@@ -120,7 +118,7 @@ export function AgePolicyPage() {
         </p>
         <PolicyList
           items={[
-            'FDA regulations on non-nicotine products',
+            'FDA regulations on vaping products',
             'State-level age-verification requirements',
             'Federal Trade Commission (FTC) advertising guidelines',
             'Local advertising and retail restrictions',
@@ -128,11 +126,11 @@ export function AgePolicyPage() {
         />
       </PolicySection>
 
-      <PolicySection number="08" title="Non-Nicotine Commitment">
+      <PolicySection number="08" title="Consumer Responsibility">
         <p>
-          All KAPOW products contain zero nicotine. This is not a marketing claim — it is a
-          fundamental design decision at the core of our brand. We believe flavour should be
-          a choice, not a craving.
+          KAPOW products are designed for adults of legal age who choose to use them
+          responsibly. We expect our customers to follow all applicable laws and to
+          keep our products out of the reach of minors and pets.
         </p>
       </PolicySection>
     </PolicyLayout>

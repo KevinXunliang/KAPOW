@@ -60,7 +60,7 @@ export function EventWidget() {
             <X className="w-2.5 h-2.5" />
           </button>
 
-          {/* 圆形按钮主体 - 与Back To Top按钮尺寸一致 */}
+          {/* 圆形按钮主体 - 与 Back To Top 按钮尺寸一致 */}
           <Link
             to={`/events/${event.slug}`}
             className="
@@ -75,28 +75,29 @@ export function EventWidget() {
             "
             aria-label={event.title}
           >
-            {/* 主视觉渐变（图片加载失败时的兜底） */}
-            <div
-              className="absolute inset-0"
-              style={{ background: event.heroGradient }}
-            />
-
-            {/* 图片 / 动图 */}
-            {event.image && (
+            {/* 背景 - 图片优先，无图片时用渐变兜底 */}
+            {event.image ? (
               <img
                 src={event.image}
                 alt={event.title}
-                className="relative w-full h-full object-cover"
+                className="w-full h-full object-cover"
                 onError={(e) => {
+                  // 图片加载失败时隐藏，露出渐变背景
                   const target = e.target as HTMLImageElement;
                   target.style.display = 'none';
                 }}
               />
-            )}
+            ) : null}
+
+            {/* 渐变背景层 - 始终存在，图片加载失败时显示 */}
+            <div
+              className="absolute inset-0 -z-10"
+              style={{ background: event.heroGradient }}
+            />
 
             {/* 状态指示（Live 时显示脉冲小圆点） */}
             {event.status === 'active' && (
-              <span className="absolute top-1 left-1 w-2 h-2 rounded-full bg-moss-400 border border-white shadow-sm">
+              <span className="absolute top-1 left-1 z-10 w-2 h-2 rounded-full bg-moss-400 border border-white shadow-sm">
                 <span className="absolute inset-0 rounded-full bg-moss-400 animate-ping opacity-75" />
               </span>
             )}

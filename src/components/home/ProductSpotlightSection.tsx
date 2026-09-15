@@ -15,10 +15,10 @@ export function ProductSpotlightSection() {
     <section className="py-24 bg-cream-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="12 Flavours. One Device."
-          title="Find Your Flavour"
-          subtitle="From glacier-fresh menthol to sun-ripened fruit — every flavour is crafted with clean ingredients and zero nicotine."
-        />
+  eyebrow="12 Flavours. One Device."
+  title="Find Your Flavour"
+  subtitle="From glacier-fresh menthol to sun-ripened fruit — every flavour is crafted for a pure, uncompromising taste."
+/>
 
         <div className="mt-16 grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-start">
           {/* 左侧：产品渲染图 */}

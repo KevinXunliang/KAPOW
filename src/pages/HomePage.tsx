@@ -10,7 +10,7 @@ import {
   StatsStrip,
   BrandPillarsSection,
 } from '@/components/home/BrandStorySection';
-import { EcoCommitmentSection } from '@/components/home/EcoCommitmentSection';
+import { QualityCommitmentSection } from '@/components/home/QualityCommitmentSection';
 import { SceneGallerySection } from '@/components/home/SceneGallerySection';
 import { BlogTeaserSection } from '@/components/home/BlogTeaserSection';
 import { SubscribeSection } from '@/components/home/SubscribeSection';
@@ -32,7 +32,7 @@ export function HomePage() {
       <BrandStorySection />
       <StatsStrip />
       <BrandPillarsSection />
-      <EcoCommitmentSection />
+      <QualityCommitmentSection />
 
       {/* 生活场景与内容 */}
       <SceneGallerySection />

@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Mail,
   MapPin,
-  Leaf,
+  Sparkles,
   Send,
   CheckCircle,
   AlertCircle,
@@ -39,59 +39,45 @@ export function ContactPage() {
     subject: '',
     message: '',
   });
-  // 记录每个字段的错误信息
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const subjects = ['General Inquiry', 'Wholesale', 'Press', 'Sustainability Partnership'];
+  const subjects = ['General Inquiry', 'Wholesale', 'Press', 'Partnership'];
 
-  // 邮箱验证规则
   const isValidEmail = (email: string): boolean => {
     const trimmed = email.trim();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(trimmed);
   };
 
-  // 更新表单字段
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-
-    // 输入时清除该字段的错误
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: '' }));
     }
   };
 
-  // 验证整个表单
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
 
-    // 姓名
     if (!formData.name.trim()) {
       newErrors.name = 'Please enter your name.';
     }
 
-    // 邮箱 - 空值
     if (!formData.email.trim()) {
       newErrors.email = 'Please enter your email address.';
-    }
-    // 邮箱 - 缺少 @
-    else if (!formData.email.includes('@')) {
+    } else if (!formData.email.includes('@')) {
       newErrors.email = 'Please include an "@" in the email address.';
-    }
-    // 邮箱 - 格式不完整
-    else if (!isValidEmail(formData.email)) {
+    } else if (!isValidEmail(formData.email)) {
       newErrors.email = 'Please enter a complete email address (e.g., name@domain.com).';
     }
 
-    // 主题
     if (!formData.subject) {
       newErrors.subject = 'Please select a subject.';
     }
 
-    // 消息
     if (!formData.message.trim()) {
       newErrors.message = 'Please enter your message.';
     }
@@ -102,9 +88,7 @@ export function ContactPage() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
     setSubmitted(true);
   };
 
@@ -116,7 +100,7 @@ export function ContactPage() {
 
   return (
     <>
-      <section className="pt-44 pb-12 bg-cream-100 gradient-mesh">
+      <section className="pt-32 pb-12 bg-cream-100 gradient-mesh">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <SectionHeading
             eyebrow="Get in Touch"
@@ -129,7 +113,6 @@ export function ContactPage() {
       <section className="py-16 bg-cream-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-5 gap-8">
-            {/* 表单 */}
             <Reveal className="lg:col-span-3">
               <div className="bg-white rounded-3xl border border-sage-200 p-8 sm:p-10">
                 {submitted ? (
@@ -155,12 +138,7 @@ export function ContactPage() {
                 ) : (
                   <form onSubmit={handleSubmit} noValidate className="space-y-5">
                     <div className="grid sm:grid-cols-2 gap-5">
-                      {/* 姓名 */}
-                      <Field
-                        label="Name"
-                        htmlFor="name"
-                        error={errors.name}
-                      >
+                      <Field label="Name" htmlFor="name" error={errors.name}>
                         <input
                           id="name"
                           name="name"
@@ -180,12 +158,7 @@ export function ContactPage() {
                         />
                       </Field>
 
-                      {/* 邮箱 */}
-                      <Field
-                        label="Email"
-                        htmlFor="email"
-                        error={errors.email}
-                      >
+                      <Field label="Email" htmlFor="email" error={errors.email}>
                         <input
                           id="email"
                           name="email"
@@ -206,12 +179,7 @@ export function ContactPage() {
                       </Field>
                     </div>
 
-                    {/* 主题 */}
-                    <Field
-                      label="Subject"
-                      htmlFor="subject"
-                      error={errors.subject}
-                    >
+                    <Field label="Subject" htmlFor="subject" error={errors.subject}>
                       <select
                         id="subject"
                         name="subject"
@@ -239,12 +207,7 @@ export function ContactPage() {
                       </select>
                     </Field>
 
-                    {/* 消息 */}
-                    <Field
-                      label="Message"
-                      htmlFor="message"
-                      error={errors.message}
-                    >
+                    <Field label="Message" htmlFor="message" error={errors.message}>
                       <textarea
                         id="message"
                         name="message"
@@ -276,10 +239,8 @@ export function ContactPage() {
               </div>
             </Reveal>
 
-            {/* 侧边栏 */}
             <Reveal delay={0.1} className="lg:col-span-2">
               <div className="space-y-6">
-                {/* 联系信息 */}
                 <div className="bg-white rounded-3xl border border-sage-200 p-6">
                   <h3 className="font-bold text-forest-800 mb-4">Connect With Us</h3>
                   <div className="space-y-3">
@@ -289,12 +250,11 @@ export function ContactPage() {
                     </div>
                     <div className="flex items-center gap-3 text-sm text-forest-600">
                       <MapPin className="w-4 h-4 text-moss-600" />
-                      <span>KAPOW HQ, Clean Living Co.</span>
+                      <span>KAPOW HQ</span>
                     </div>
                   </div>
                 </div>
 
-                {/* 社交 */}
                 <div className="bg-white rounded-3xl border border-sage-200 p-6">
                   <h3 className="font-bold text-forest-800 mb-4">Follow KAPOW</h3>
                   <div className="flex gap-3">
@@ -316,15 +276,15 @@ export function ContactPage() {
                   </div>
                 </div>
 
-                {/* Eco pledge */}
+                {/* 品牌承诺卡片 - 替换原 Eco Pledge */}
                 <div className="bg-forest-800 rounded-3xl p-6">
                   <div className="inline-flex items-center gap-2 text-moss-300 text-sm font-semibold mb-3">
-                    <Leaf className="w-4 h-4" />
-                    Our Eco Pledge
+                    <Sparkles className="w-4 h-4" />
+                    Our Promise
                   </div>
                   <p className="text-cream-100/70 text-sm leading-relaxed">
-                    KAPOW is committed to a cleaner, greener future — one puff at a time. Every
-                    message you send helps us build a more sustainable community.
+                    KAPOW is committed to premium quality in everything we do. Every
+                    message you send helps us build a better experience for our community.
                   </p>
                 </div>
               </div>
@@ -337,7 +297,7 @@ export function ContactPage() {
 }
 
 // ============================================================
-// 字段包装组件 - 支持错误提示
+// Field 组件
 // ============================================================
 function Field({
   label,
@@ -357,7 +317,6 @@ function Field({
       </label>
       {children}
 
-      {/* 错误提示 */}
       <AnimatePresence>
         {error && (
           <motion.div

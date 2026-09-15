@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Leaf, Heart, ShieldCheck, ArrowRight, ChevronDown } from 'lucide-react';
+import { MapPin, Sparkles, Layers, Zap, ShieldCheck, ArrowRight, ChevronDown } from 'lucide-react';
 import { ProductRender } from '@/components/ProductRender';
 import { SectionHeading, Reveal } from '@/components/SectionHeading';
 import { Icon } from '@/components/Icon';
-import { flavours, features, specs, type Flavour, type Feature } from '@/data/content';
+import { flavours, features, specs, type Flavour } from '@/data/content';
 
 const categories = ['All', 'Mint & Menthol', 'Fruity', 'Berry', 'Citrus'] as const;
 
@@ -39,7 +39,6 @@ function MainKvSection() {
         poster="/images/hero-poster.jpg"
       >
         <source src="/videos/product-hero.mp4" type="video/mp4" />
-        {/* 降级背景 */}
         <div className="absolute inset-0 bg-gradient-to-br from-forest-900 to-moss-700" />
       </video>
 
@@ -55,8 +54,8 @@ function MainKvSection() {
           className="text-center max-w-4xl"
         >
           <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium mb-6 border border-white/20">
-            <Leaf className="w-4 h-4" />
-            Non-Nicotine · Eco-Conscious · 85K Puffs
+            <Sparkles className="w-4 h-4" />
+            Premium Vape · 85K Puffs · Crafted Experience
           </span>
 
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 text-balance">
@@ -64,8 +63,8 @@ function MainKvSection() {
           </h1>
 
           <p className="text-lg sm:text-xl text-white/80 leading-relaxed max-w-2xl mx-auto mb-8">
-            85,000 puffs of pure, non-nicotine flavour. Engineered for clean enjoyment,
-            designed for the planet.
+            85,000 puffs of pure, full-bodied flavour. Engineered for consistent
+            performance, designed to be noticed.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -104,14 +103,13 @@ function MainKvSection() {
 // 第二屏：Key Features - 不规则图文网格
 // ============================================================
 function KeyFeaturesSection() {
-  // 定义每个卖点的网格尺寸
   const featureLayouts: { col: string; row: string; size: 'large' | 'medium' | 'small' }[] = [
-    { col: 'lg:col-span-2 lg:row-span-2', row: '', size: 'large' },   // 卖点1：大卡
-    { col: 'lg:col-span-1', row: '', size: 'small' },                  // 卖点2：小卡
-    { col: 'lg:col-span-1', row: '', size: 'small' },                  // 卖点3：小卡
-    { col: 'lg:col-span-1', row: '', size: 'medium' },                 // 卖点4：中卡
-    { col: 'lg:col-span-1', row: '', size: 'medium' },                 // 卖点5：中卡
-    { col: 'lg:col-span-2', row: '', size: 'large' },                  // 卖点6：宽卡
+    { col: 'lg:col-span-2 lg:row-span-2', row: '', size: 'large' },
+    { col: 'lg:col-span-1', row: '', size: 'small' },
+    { col: 'lg:col-span-1', row: '', size: 'small' },
+    { col: 'lg:col-span-1', row: '', size: 'medium' },
+    { col: 'lg:col-span-1', row: '', size: 'medium' },
+    { col: 'lg:col-span-2', row: '', size: 'large' },
   ];
 
   return (
@@ -143,7 +141,6 @@ function KeyFeaturesSection() {
                   p-6 lg:p-7 flex flex-col justify-between
                 `}
               >
-                {/* 图标 */}
                 <div
                   className={`
                     rounded-2xl bg-moss-100 text-moss-600 flex items-center justify-center
@@ -154,7 +151,6 @@ function KeyFeaturesSection() {
                   <Icon name={feature.icon} className={isLarge ? 'w-7 h-7' : 'w-6 h-6'} />
                 </div>
 
-                {/* 文字 */}
                 <div>
                   <h3
                     className={`
@@ -174,7 +170,6 @@ function KeyFeaturesSection() {
                   </p>
                 </div>
 
-                {/* 装饰性角标 */}
                 <div className="absolute top-0 right-0 w-20 h-20 bg-moss-100/30 rounded-bl-full rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
               </motion.div>
             );
@@ -200,9 +195,9 @@ function FlavourCollectionSection() {
       <div className="pt-20 pb-8 bg-cream-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <SectionHeading
-            eyebrow="12 Flavours, Zero Nicotine"
+            eyebrow="12 Flavours, One Device"
             title="The KAPOW Flavour Collection"
-            subtitle="Every flavour is crafted with clean, non-nicotine ingredients. Pick a flavour to see the device come to life."
+            subtitle="Every flavour is crafted for a pure, uncompromising taste. Pick a flavour to see the device come to life."
           />
         </div>
       </div>
@@ -229,7 +224,7 @@ function FlavourCollectionSection() {
         </div>
       </div>
 
-      {/* 当前选中口味的大图展示 */}
+      {/* 当前选中口味 */}
       <div className="py-16 bg-cream-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
@@ -297,7 +292,6 @@ function FlavourCollectionSection() {
 // 第四屏起：核心卖点详述
 // ============================================================
 function FeatureDetailSection() {
-  // 挑选 3 个核心卖点做详细展示
   const highlightFeatures = features.slice(0, 3);
 
   return (
@@ -313,7 +307,6 @@ function FeatureDetailSection() {
                 index % 2 === 1 ? 'lg:flex-row-reverse' : ''
               }`}
             >
-              {/* 文字 */}
               <Reveal className={index % 2 === 1 ? 'lg:order-2' : ''}>
                 <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase text-moss-600 mb-4">
                   <span className="w-8 h-px bg-moss-400" />
@@ -327,14 +320,11 @@ function FeatureDetailSection() {
                 </p>
               </Reveal>
 
-              {/* 视觉区块 - 用图标和装饰元素组成 */}
               <Reveal delay={0.15} className={index % 2 === 1 ? 'lg:order-1' : ''}>
                 <div className="relative aspect-square rounded-3xl bg-gradient-to-br from-moss-50 via-cream-100 to-sage-100 overflow-hidden">
-                  {/* 装饰圆 */}
                   <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-moss-200/40 blur-3xl" />
                   <div className="absolute -bottom-20 -left-20 w-48 h-48 rounded-full bg-terracotta-200/30 blur-3xl" />
 
-                  {/* 中心图标 */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <motion.div
                       initial={{ scale: 0.8, opacity: 0 }}
@@ -347,7 +337,6 @@ function FeatureDetailSection() {
                     </motion.div>
                   </div>
 
-                  {/* 角落装饰 */}
                   <div className="absolute top-6 left-6 w-12 h-12 rounded-2xl bg-white/40 backdrop-blur-sm border border-white/60" />
                   <div className="absolute bottom-6 right-6 w-16 h-16 rounded-full bg-white/30 backdrop-blur-sm border border-white/50" />
                 </div>
@@ -386,7 +375,7 @@ function SceneGallerySection() {
     {
       id: 4,
       title: 'Pure Simplicity',
-      desc: 'Clean ingredients, clear mind.',
+      desc: 'Clean design, clear mind.',
       image: '/images/scene-simplicity.jpg',
     },
   ];
@@ -397,7 +386,7 @@ function SceneGallerySection() {
         <SectionHeading
           eyebrow="Life in Flavour"
           title="Beyond the Vape"
-          subtitle="KAPOW fits into your life — effortlessly, sustainably, beautifully."
+          subtitle="KAPOW fits into your life — effortlessly, beautifully, every day."
         />
 
         <div className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
@@ -451,20 +440,17 @@ function PackagingSpecsSection() {
           {/* 包装图 */}
           <Reveal>
             <div className="relative rounded-3xl bg-gradient-to-br from-cream-100 via-moss-50 to-sage-100 aspect-square overflow-hidden flex items-center justify-center">
-              {/* 装饰 */}
               <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-moss-200/40 blur-3xl" />
               <div className="absolute -bottom-20 -left-20 w-48 h-48 rounded-full bg-terracotta-200/30 blur-3xl" />
 
-              {/* 包装图占位 */}
               <div className="relative z-10 text-center">
                 <div className="text-6xl font-bold text-moss-600/30 mb-3">KAPOW</div>
                 <div className="text-sm text-forest-500/60">Packaging Image</div>
               </div>
 
-              {/* 品牌角标 */}
               <div className="absolute top-6 left-6 inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full border border-sage-200">
-                <Leaf className="w-3.5 h-3.5 text-moss-600" />
-                <span className="text-xs font-medium text-forest-700">Eco-Friendly</span>
+                <Sparkles className="w-3.5 h-3.5 text-moss-600" />
+                <span className="text-xs font-medium text-forest-700">Premium Quality</span>
               </div>
             </div>
           </Reveal>
@@ -489,16 +475,13 @@ function PackagingSpecsSection() {
                 ))}
               </dl>
 
-              {/* 免责声明 */}
               <div className="mt-6 flex items-start gap-2 text-xs text-forest-400 bg-sage-50 p-4 rounded-xl border border-sage-100">
                 <ShieldCheck className="w-4 h-4 mt-0.5 shrink-0 text-moss-500" />
                 <span>
-                  This product contains no nicotine. Intended for adult use only. Keep out of
-                  reach of children.
+                  Intended for adult use only. Keep out of reach of children.
                 </span>
               </div>
 
-              {/* CTA */}
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <a
                   href="/contact"
@@ -551,7 +534,6 @@ function FlavourCard({
       }`}
       aria-pressed={active}
     >
-      {/* 视觉区 */}
       <div className="h-32 relative overflow-hidden" style={{ background: flavour.gradient }}>
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
         <div className="absolute inset-0 flex items-center justify-center">
@@ -566,7 +548,6 @@ function FlavourCard({
         )}
       </div>
 
-      {/* 文字区 */}
       <div className="p-3 bg-white">
         <h4 className="font-semibold text-forest-800 text-sm leading-snug truncate">
           {flavour.name}

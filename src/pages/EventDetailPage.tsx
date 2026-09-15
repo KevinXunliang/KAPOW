@@ -44,11 +44,18 @@ export function EventDetailPage() {
     <>
       {/* Hero */}
       <section className="relative h-[70vh] min-h-[500px] overflow-hidden">
-        {/* 背景 */}
-        <div
-          className="absolute inset-0"
-          style={{ background: event.heroGradient }}
-        />
+  {event.image ? (
+    <img
+      src={event.image}
+      alt={event.title}
+      className="absolute inset-0 w-full h-full object-cover"
+    />
+  ) : (
+    <div
+      className="absolute inset-0"
+      style={{ background: event.heroGradient }}
+    />
+  )}
 
         {/* 装饰圆 */}
         <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-white/20 blur-3xl" />
@@ -211,13 +218,22 @@ function OtherEventsSection({ currentSlug }: { currentSlug: string }) {
               transition={{ duration: 0.4, delay: i * 0.1 }}
             >
               <Link
-                to={`/events/${evt.slug}`}
-                className="group block relative aspect-[4/5] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
-              >
-                <div
-                  className="absolute inset-0 transition-transform duration-500 group-hover:scale-105"
-                  style={{ background: evt.heroGradient }}
-                />
+  to={`/events/${evt.slug}`}
+  className="group block relative aspect-[4/5] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+>
+  {evt.image ? (
+    <img
+      src={evt.image}
+      alt={evt.title}
+      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      loading="lazy"
+    />
+  ) : (
+    <div
+      className="absolute inset-0 transition-transform duration-500 group-hover:scale-105"
+      style={{ background: evt.heroGradient }}
+    />
+  )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
                 <div className="relative h-full flex flex-col justify-end p-5 text-white">

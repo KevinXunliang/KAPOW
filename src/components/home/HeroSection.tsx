@@ -1,18 +1,17 @@
 // src/components/home/HeroSection.tsx
 
 import { motion } from 'framer-motion';
-import { Wind, Recycle, Leaf } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Sparkles, Zap, Battery } from 'lucide-react';
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden gradient-mesh bg-cream-50">
-      {/* 装饰性模糊圆形 */}
+    <section className="relative min-h-screen flex items-center overflow-hidden gradient-mesh bg-cream-50 pt-20">
       <div className="absolute top-1/4 -left-20 w-72 h-72 rounded-full bg-moss-200/30 blur-3xl" />
       <div className="absolute bottom-1/4 -right-20 w-96 h-96 rounded-full bg-terracotta-200/20 blur-3xl" />
 
-      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex items-center justify-center">
-          {/* 视频播放器 */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -31,36 +30,33 @@ export function HeroSection() {
               >
                 <source src="/videos/hero.mp4" type="video/mp4" />
                 <div className="w-full aspect-video bg-gradient-to-br from-forest-800 to-moss-600 flex items-center justify-center text-white/50">
-                  Your browser cannot play this video.
+                  Your browser does not support video playback
                 </div>
               </video>
             </div>
           </motion.div>
         </div>
       </div>
-
-      {/* SCROLL 指示器 - 已删除 */}
     </section>
   );
 }
 
-// MissionStrip 保持不变
 export function MissionStrip() {
   const items = [
     {
-      icon: Wind,
-      title: 'Non-Nicotine',
-      desc: 'Zero nicotine, zero guilt — just pure, clean flavour.',
+      icon: Sparkles,
+      title: 'Premium Quality',
+      desc: 'Crafted with precision for a consistently superior experience.',
     },
     {
-      icon: Recycle,
-      title: 'Eco-Conscious',
-      desc: 'Sustainable thinking built into every device.',
+      icon: Zap,
+      title: 'Smart Control',
+      desc: 'ECO, BOOST, and TURBO modes at your fingertips.',
     },
     {
-      icon: Leaf,
+      icon: Battery,
       title: 'Long-Lasting',
-      desc: '85,000 puffs of enjoyment in a single device.',
+      desc: '85,000 puffs and fast Type-C charging in a single device.',
     },
   ];
 

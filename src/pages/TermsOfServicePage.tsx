@@ -13,7 +13,7 @@ export function TermsOfServicePage() {
     <PolicyLayout
       title="Terms of Service"
       subtitle="The rules and conditions for using the KAPOW website and services."
-      lastUpdated="September 10, 2026"
+      lastUpdated="September 15, 2026"
       icon={<FileText className="w-8 h-8" />}
     >
       <PolicyCallout>
@@ -51,7 +51,7 @@ export function TermsOfServicePage() {
           other content are completely accurate, complete, or error-free.
         </p>
         <p>
-          Our products are non-nicotine and are not intended to diagnose, treat, cure, or
+          Our products are consumer goods and are not intended to diagnose, treat, cure, or
           prevent any disease or condition.
         </p>
       </PolicySection>

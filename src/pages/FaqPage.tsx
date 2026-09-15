@@ -3,22 +3,22 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Search,
   Plus,
-  Leaf,
   Package,
   ShieldCheck,
-  Heart,
-  ChevronRight,
+  Zap,
+  Layers,
   MessageCircle,
+  ChevronRight,
   Mail,
+  Sparkles,
 } from 'lucide-react';
 import { SectionHeading } from '@/components/SectionHeading';
 
 // ============================================================
-// FAQ 分类与数据
+// FAQ 分类
 // ============================================================
-type FaqCategory = 'All' | 'Product' | 'Usage' | 'Shipping' | 'Verification' | 'Sustainability';
+type FaqCategory = 'All' | 'Product' | 'Usage' | 'Shipping' | 'Verification' | 'Service';
 
 type FaqItem = {
   id: number;
@@ -28,12 +28,12 @@ type FaqItem = {
 };
 
 const faqCategories: { key: FaqCategory; label: string; icon: typeof Package }[] = [
-  { key: 'All', label: 'All', icon: Heart },
+  { key: 'All', label: 'All', icon: Sparkles },
   { key: 'Product', label: 'Product', icon: Package },
-  { key: 'Usage', label: 'Usage', icon: Leaf },
+  { key: 'Usage', label: 'Usage', icon: Zap },
   { key: 'Shipping', label: 'Shipping', icon: Package },
   { key: 'Verification', label: 'Verification', icon: ShieldCheck },
-  { key: 'Sustainability', label: 'Sustainability', icon: Leaf },
+  { key: 'Service', label: 'Service', icon: Layers },
 ];
 
 const faqs: FaqItem[] = [
@@ -45,35 +45,35 @@ const faqs: FaqItem[] = [
     category: 'Product',
     question: 'What is the KAPOW 85K?',
     answer:
-      'The KAPOW 85K is a non-nicotine, eco-conscious disposable vape designed for clean enjoyment. It delivers up to 85,000 puffs of pure flavour with zero nicotine, a 950mAh rechargeable battery, and a transparent tank so you always know how much e-liquid remains.',
+      'The KAPOW 85K is a premium disposable vape designed for consistent flavour and lasting performance. It delivers up to 85,000 puffs, features a 950mAh rechargeable battery, dual mesh coils, and a transparent tank so you always know how much e-liquid remains.',
   },
   {
     id: 2,
     category: 'Product',
-    question: 'Does the KAPOW 85K contain nicotine?',
+    question: 'How many flavours are available?',
     answer:
-      'No. Every KAPOW 85K is completely nicotine-free, always. We believe flavour should be a choice, not a craving — so we built our entire product line around zero nicotine from day one.',
+      'KAPOW 85K comes in 12 signature flavours, ranging from glacier-fresh mint and menthol blends to vibrant fruit and berry profiles. Each flavour is crafted for a pure, uncompromising taste.',
   },
   {
     id: 3,
-    category: 'Product',
-    question: 'How many flavours are available?',
-    answer:
-      'KAPOW 85K comes in 12 signature flavours, ranging from glacier-fresh mint and menthol blends to vibrant fruit and berry fusion. Each flavour is crafted with clean ingredients and zero nicotine. Explore the full collection on our Product page.',
-  },
-  {
-    id: 4,
     category: 'Product',
     question: 'What are the technical specifications?',
     answer:
       'Puff Count: up to 85,000 | Battery: 950mAh rechargeable | Charging: Type-C fast charge | Button: Side button with ECO / BOOST / TURBO modes | Shell Finish: Ice Crack | Airflow: Adjustable | Dimensions: 92 × 53 × 29mm | Overcharge Protection: Supported.',
   },
   {
-    id: 5,
+    id: 4,
     category: 'Product',
     question: 'What does the "Ice Crack" finish mean?',
     answer:
       'Every KAPOW 85K features a distinctive ice-crack shell finish — a textured surface that catches and refracts light. No two devices are exactly alike, giving each one a unique, premium character.',
+  },
+  {
+    id: 5,
+    category: 'Product',
+    question: 'What is dual mesh technology?',
+    answer:
+      'Dual mesh coils use two layers of fine mesh to distribute heat evenly across the entire wicking surface. This ensures consistent, full-bodied flavour from your very first puff to your 85,000th — no dry hits, no flavour drop-off.',
   },
 
   // ============================================================
@@ -91,7 +91,7 @@ const faqs: FaqItem[] = [
     category: 'Usage',
     question: 'How do I switch between ECO, BOOST, and TURBO modes?',
     answer:
-      'Press the side button once to cycle through the three modes. ECO delivers the most puffs per charge, BOOST provides a fuller flavour, and TURBO is for when you want maximum cloud and intensity. Your current mode is displayed on the smart screen.',
+      'Press the side button once to cycle through the three modes. ECO delivers the most puffs per charge, BOOST provides fuller flavour, and TURBO is for maximum intensity. Your current mode is displayed on the smart screen.',
   },
   {
     id: 8,
@@ -112,7 +112,7 @@ const faqs: FaqItem[] = [
     category: 'Usage',
     question: 'What should I do when the tank runs low?',
     answer:
-      'The transparent tank lets you see exactly how much e-liquid remains. When it\'s nearly empty, it\'s time to replace the device responsibly. Please dispose of your device at an authorized e-waste recycling point — never in regular household trash.',
+      'The transparent tank lets you see exactly how much e-liquid remains. When it\'s nearly empty, it\'s time to replace the device. Please dispose of your device at an authorized e-waste recycling point — never in regular household trash.',
   },
 
   // ============================================================
@@ -123,7 +123,7 @@ const faqs: FaqItem[] = [
     category: 'Shipping',
     question: 'Where can I buy the KAPOW 85K?',
     answer:
-      'KAPOW 85K is available through select eco-conscious retailers. We\'re expanding to more locations soon. Visit our Contact page to find a retailer near you, or reach out to us for wholesale inquiries.',
+      'KAPOW 85K is available through select retailers. Visit our Contact page to find a retailer near you, or reach out to us for wholesale inquiries.',
   },
   {
     id: 12,
@@ -180,51 +180,48 @@ const faqs: FaqItem[] = [
   },
 
   // ============================================================
-  // Sustainability
+  // Service
   // ============================================================
   {
     id: 19,
-    category: 'Sustainability',
-    question: 'How is KAPOW eco-conscious?',
+    category: 'Service',
+    question: 'What if my device has a defect?',
     answer:
-      'From responsibly sourced materials to recyclable packaging, every decision we make considers its environmental impact. The KAPOW 85K\'s extended 85,000-puff lifespan means fewer devices and less waste over time.',
+      'Every KAPOW 85K is covered by a 30-day warranty from the date of purchase against manufacturing defects. Please contact our support team with your proof of purchase and a description of the issue.',
   },
   {
     id: 20,
-    category: 'Sustainability',
-    question: 'How should I dispose of my KAPOW device?',
+    category: 'Service',
+    question: 'How do I contact customer support?',
     answer:
-      'Please do not throw your device in regular household trash. Instead, take it to an authorized e-waste recycling point. We\'re continuously investing in take-back programs to close the loop on disposal.',
+      'You can reach our support team through our Contact page, or email us directly at support@kapow.com. We respond to all inquiries within 1–2 business days.',
   },
   {
     id: 21,
-    category: 'Sustainability',
-    question: 'Is the packaging recyclable?',
+    category: 'Service',
+    question: 'Where can I find product documentation?',
     answer:
-      'Yes — our packaging is designed to be recyclable and minimal. We use responsibly sourced materials and continuously look for ways to reduce our environmental footprint.',
+      'Product spec sheets, user manuals, brand assets, and marketing materials are available on our Download page.',
   },
   {
     id: 22,
-    category: 'Sustainability',
-    question: 'What are your future sustainability goals?',
+    category: 'Service',
+    question: 'Do you offer wholesale pricing?',
     answer:
-      'We\'re investing in biodegradable materials, carbon-neutral manufacturing, and closed-loop recycling. Our goal is to make every stage of the product lifecycle more sustainable by 2027.',
+      'Yes. If you\'re interested in becoming a KAPOW retail partner, please contact us through our Contact page and select "Wholesale" as your subject. Our team will follow up with pricing and program details.',
   },
 ];
 
 // ============================================================
-// FAQ 页面主组件
+// 页面主组件
 // ============================================================
 export function FaqPage() {
   const [activeCategory, setActiveCategory] = useState<FaqCategory>('All');
   const [openId, setOpenId] = useState<number | null>(faqs[0].id);
 
-  // 筛选逻辑
   const filteredFaqs = useMemo(() => {
     return faqs.filter((faq) => {
-      const matchesCategory =
-        activeCategory === 'All' || faq.category === activeCategory;
-      return matchesCategory;
+      return activeCategory === 'All' || faq.category === activeCategory;
     });
   }, [activeCategory]);
 
@@ -235,7 +232,7 @@ export function FaqPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-44 pb-16 overflow-hidden gradient-mesh bg-cream-100">
+      <section className="relative pt-32 pb-16 overflow-hidden gradient-mesh bg-cream-100">
         <div className="absolute top-1/4 -left-20 w-72 h-72 rounded-full bg-moss-200/30 blur-3xl" />
         <div className="absolute bottom-0 -right-20 w-96 h-96 rounded-full bg-terracotta-200/20 blur-3xl" />
 
@@ -264,17 +261,15 @@ export function FaqPage() {
             transition={{ delay: 0.2 }}
             className="mt-6 text-lg text-forest-500 leading-relaxed max-w-2xl mx-auto"
           >
-            Everything you need to know about KAPOW 85K, our flavours, verification,
-            shipping, and sustainability.
+            Everything you need to know about KAPOW 85K — product details,
+            usage, verification, shipping, and service.
           </motion.p>
         </div>
       </section>
 
-      {/* 搜索与筛选 */}
+      {/* 分类筛选 */}
       <section className="py-12 bg-cream-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          {/* 分类筛选 */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -309,24 +304,22 @@ export function FaqPage() {
       {/* FAQ 列表 */}
       <section className="py-16 bg-cream-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* 结果统计 */}
-<div className="mb-6 flex items-center justify-between text-sm text-forest-400">
-  <span>
-    Showing <strong className="text-forest-700">{filteredFaqs.length}</strong>{' '}
-    {filteredFaqs.length === 1 ? 'answer' : 'answers'}
-    {activeCategory !== 'All' && ` in ${activeCategory}`}
-  </span>
-  {activeCategory !== 'All' && (
-    <button
-      onClick={() => setActiveCategory('All')}
-      className="text-moss-600 hover:text-moss-700 font-medium transition-colors"
-    >
-      Clear filter
-    </button>
-  )}
-</div>
+          <div className="mb-6 flex items-center justify-between text-sm text-forest-400">
+            <span>
+              Showing <strong className="text-forest-700">{filteredFaqs.length}</strong>{' '}
+              {filteredFaqs.length === 1 ? 'answer' : 'answers'}
+              {activeCategory !== 'All' && ` in ${activeCategory}`}
+            </span>
+            {activeCategory !== 'All' && (
+              <button
+                onClick={() => setActiveCategory('All')}
+                className="text-moss-600 hover:text-moss-700 font-medium transition-colors"
+              >
+                Clear filter
+              </button>
+            )}
+          </div>
 
-          {/* FAQ 列表 */}
           {filteredFaqs.length === 0 ? (
             <EmptyState />
           ) : (
@@ -354,7 +347,6 @@ export function FaqPage() {
             viewport={{ once: true }}
             className="relative bg-gradient-to-br from-moss-600 to-forest-800 rounded-3xl p-8 sm:p-12 overflow-hidden text-center"
           >
-            {/* 装饰 */}
             <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-white/5 blur-3xl" />
             <div className="absolute -bottom-20 -left-20 w-48 h-48 rounded-full bg-moss-400/10 blur-3xl" />
 
@@ -368,8 +360,8 @@ export function FaqPage() {
               </h2>
 
               <p className="text-cream-100/70 leading-relaxed max-w-lg mx-auto mb-8">
-                Our team is here to help. Reach out and we'll get back to you as soon as
-                possible.
+                Our team is here to help. Reach out and we'll get back to you as soon
+                as possible.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -397,7 +389,7 @@ export function FaqPage() {
 }
 
 // ============================================================
-// FAQ 手风琴子组件
+// FAQ 手风琴
 // ============================================================
 function FaqAccordion({
   faq,
@@ -429,7 +421,6 @@ function FaqAccordion({
         className="w-full flex items-start gap-4 p-5 sm:p-6 text-left"
         aria-expanded={isOpen}
       >
-        {/* 分类标签 */}
         <span
           className={`
             hidden sm:inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full shrink-0 mt-0.5
@@ -439,7 +430,6 @@ function FaqAccordion({
           {faq.category}
         </span>
 
-        {/* 问题文字 */}
         <span
           className={`
             flex-1 font-semibold text-left leading-snug transition-colors
@@ -449,7 +439,6 @@ function FaqAccordion({
           {faq.question}
         </span>
 
-        {/* 加号/减号 */}
         <span
           className={`
             shrink-0 flex items-center justify-center w-7 h-7 rounded-full transition-all duration-300
@@ -463,7 +452,6 @@ function FaqAccordion({
         </span>
       </button>
 
-      {/* 回答 */}
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div

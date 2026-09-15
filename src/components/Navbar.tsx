@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Leaf, ChevronDown, ArrowRight } from 'lucide-react';
+import { Menu, X, Sparkles, ChevronDown, ArrowRight } from 'lucide-react';
 import { navLinks, type NavLink } from '@/data/content';
 import { useNavbarTheme } from '@/context/NavbarThemeContext';
 
@@ -255,8 +255,8 @@ export function Navbar() {
           {/* Eco 标签 */}
           <div className="hidden lg:flex items-center gap-4">
             <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full border transition-colors ${ecoBadgeClass}`}>
-              <Leaf className="w-3.5 h-3.5" />
-              Non-Nicotine · Eco-Conscious
+              <Sparkles className="w-3.5 h-3.5" />
+              Premium Vape · Crafted for Flavour
             </span>
           </div>
 
@@ -282,8 +282,8 @@ export function Navbar() {
             {renderMobileNav()}
             <div className="pt-3 mt-3 border-t border-sage-100/50">
               <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full border ${ecoBadgeClass}`}>
-                <Leaf className="w-3.5 h-3.5" />
-                Non-Nicotine · Eco-Conscious
+                <Sparkles className="w-3.5 h-3.5" />
+                Premium Vape · Crafted for Flavour
               </span>
             </div>
           </div>

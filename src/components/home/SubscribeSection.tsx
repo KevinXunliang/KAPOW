@@ -95,9 +95,9 @@ export function SubscribeSection() {
             </h2>
 
             <p className="text-base sm:text-lg text-forest-500/80 leading-relaxed mb-8">
-              Subscribe for exclusive updates, flavour drops, and eco-conscious living tips.
-              No spam, just pure goodness.
-            </p>
+  Subscribe for exclusive updates, flavour drops, and product news.
+  No spam, just pure goodness.
+</p>
 
             {/* 表单 */}
             <form onSubmit={handleSubmit} noValidate className="flex flex-col sm:flex-row gap-3">

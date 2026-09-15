@@ -20,7 +20,7 @@ export function FeaturedEventSection() {
         <SectionHeading
           eyebrow="What's Happening"
           title="Brand Events"
-          subtitle="Discover what's new at KAPOW — from limited drops to sustainability initiatives."
+          subtitle="Discover what's new at KAPOW — from limited drops to community events."
         />
 
         <div className="mt-16">
@@ -170,8 +170,8 @@ function EventCard({ event, size }: { event: BrandEvent; size: CardSize }) {
       titleSize: 'text-lg lg:text-xl',
       excerptSize: 'text-xs',
       padding: 'p-5 lg:p-6',
-      showExcerpt: false, // 小卡不显示描述，节省空间
-      showDate: false, // 小卡不显示日期
+      showExcerpt: false,
+      showDate: false,
     },
   };
 
@@ -190,11 +190,20 @@ function EventCard({ event, size }: { event: BrandEvent; size: CardSize }) {
         hover:-translate-y-1
       `}
     >
-      {/* 背景渐变 */}
-      <div
-        className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
-        style={{ background: event.heroGradient }}
-      />
+      {/* 背景 - 图片优先，无图片时用渐变兜底 */}
+      {event.image ? (
+        <img
+          src={event.image}
+          alt={event.title}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          loading="lazy"
+        />
+      ) : (
+        <div
+          className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
+          style={{ background: event.heroGradient }}
+        />
+      )}
 
       {/* 装饰圆 */}
       <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-white/15 blur-3xl" />

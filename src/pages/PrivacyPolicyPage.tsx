@@ -13,7 +13,7 @@ export function PrivacyPolicyPage() {
     <PolicyLayout
       title="Privacy Policy"
       subtitle="How KAPOW collects, uses, and protects your personal information."
-      lastUpdated="September 10, 2026"
+      lastUpdated="September 15, 2026"
       icon={<ShieldCheck className="w-8 h-8" />}
     >
       <PolicyCallout>
@@ -112,7 +112,7 @@ export function PrivacyPolicyPage() {
         </p>
       </PolicySection>
 
-      <PolicySection number="07" title="Children's Privacy">
+      <PolicySection number="07" title="Age Restriction">
         <p>
           Our products and website are intended for adults of legal age only. We do not
           knowingly collect information from anyone under the legal age in their

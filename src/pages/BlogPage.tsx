@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react';
 import { SectionHeading } from '@/components/SectionHeading';
 import { blogPosts, type BlogPost } from '@/data/content';
 
-const categories = ['All', 'Wellness', 'Sustainability', 'Product Education', 'Lifestyle'] as const;
+const categories = ['All', 'Craftsmanship', 'Product Knowledge', 'Flavour', 'Lifestyle'] as const;
 
 export function BlogPage() {
   const [filter, setFilter] = useState<string>('All');

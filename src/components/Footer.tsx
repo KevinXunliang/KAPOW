@@ -1,7 +1,7 @@
 // src/components/Footer.tsx
 
 import { Link } from 'react-router-dom';
-import { Instagram, Facebook, Leaf } from 'lucide-react';
+import { Instagram, Facebook, Sparkles } from 'lucide-react';
 import { navLinks, type NavLink } from '@/data/content';
 
 function TikTokIcon({ className }: { className?: string }) {
@@ -20,15 +20,9 @@ function XIcon({ className }: { className?: string }) {
   );
 }
 
-// ============================================================
-// 从 navLinks 派生 Footer 列
-// 有 children 的导航项 → 独立一列（用 label 作标题，children 作链接）
-// 无 children 的导航项 → 汇总到 "Company" 列
-// ============================================================
 function getFooterColumns(): { title: string; links: { label: string; path: string }[] }[] {
   const columns: { title: string; links: { label: string; path: string }[] }[] = [];
 
-  // 有子菜单的导航项 → 独立列
   navLinks.forEach((link: NavLink) => {
     if (link.children && link.children.length > 0) {
       columns.push({
@@ -41,10 +35,9 @@ function getFooterColumns(): { title: string; links: { label: string; path: stri
     }
   });
 
-  // 无子菜单的导航项 → 归入 "Company" 列
   const standaloneLinks = navLinks
     .filter((link: NavLink) => !link.children || link.children.length === 0)
-    .filter((link: NavLink) => link.path !== '/') // 排除 "Home" 
+    .filter((link: NavLink) => link.path !== '/')
     .map((link: NavLink) => ({
       label: link.label,
       path: link.path || '#',
@@ -68,7 +61,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* 顶部区域 */}
         <div className="py-16 grid gap-12 lg:grid-cols-5">
-          {/* 品牌区（占 2 列） */}
+          {/* 品牌区 */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-4">
               <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-moss-500 text-cream-50 font-bold text-sm">
@@ -78,12 +71,10 @@ export function Footer() {
             </Link>
 
             <p className="text-cream-100/70 text-sm leading-relaxed max-w-md mb-6">
-              Pure flavour. Zero nicotine. Zero compromise. KAPOW is an eco-conscious,
-              wellness-forward disposable vape designed for those who choose clean enjoyment
-              without compromise.
+              Pure flavour. Precision engineering. Uncompromising quality. KAPOW is
+              a premium vape brand built for those who expect more from every puff.
             </p>
 
-            {/* 社交图标 */}
             <div className="flex items-center gap-3">
               {[
                 { Icon: Instagram, label: 'Instagram' },
@@ -103,7 +94,7 @@ export function Footer() {
             </div>
           </div>
 
-          {/* 导航列（自动从 navLinks 派生） */}
+          {/* 导航列 */}
           {footerColumns.map((column) => (
             <div key={column.title}>
               <h3 className="font-semibold text-sm tracking-wide uppercase text-cream-100/90 mb-4">
@@ -128,30 +119,35 @@ export function Footer() {
         {/* 品牌承诺条 */}
         <div className="border-t border-forest-800 py-6">
           <div className="flex items-center justify-center gap-2 text-sm text-cream-100/70">
-            <Leaf className="w-4 h-4 text-moss-400 shrink-0" />
-            <p>KAPOW is committed to a cleaner, greener future — one puff at a time.</p>
+            <Sparkles className="w-4 h-4 text-moss-400 shrink-0" />
+            <p>KAPOW is committed to premium quality — one device, one puff at a time.</p>
           </div>
         </div>
 
         {/* 底部版权信息 */}
         <div className="border-t border-forest-800 py-8 space-y-4">
+          <p className="text-xs text-cream-100/50 leading-relaxed max-w-3xl">
+            Intended for adult use only. Keep out of reach of children. KAPOW
+            products are intended for adults of legal age. By accessing this site
+            you confirm you are of legal age in your jurisdiction.
+          </p>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-xs text-cream-100/50">
               © 2026 KAPOW. All rights reserved.
             </p>
             <div className="flex items-center gap-4 text-xs text-cream-100/50">
-              <a href="/privacy-policy" className="hover:text-moss-300 transition-colors">
+              <Link to="/privacy" className="hover:text-moss-300 transition-colors">
                 Privacy Policy
-              </a>
-              <a href="/terms-of-service" className="hover:text-moss-300 transition-colors">
+              </Link>
+              <Link to="/terms" className="hover:text-moss-300 transition-colors">
                 Terms of Service
-              </a>
-              <a href="/age-policy" className="hover:text-moss-300 transition-colors">
+              </Link>
+              <Link to="/age-policy" className="hover:text-moss-300 transition-colors">
                 Age Policy
-              </a>
-              <a href="/warranty-policy" className="hover:text-moss-300 transition-colors">
-                Warranty Policy
-              </a>
+              </Link>
+              <Link to="/warranty" className="hover:text-moss-300 transition-colors">
+                Warranty
+              </Link>
             </div>
           </div>
         </div>

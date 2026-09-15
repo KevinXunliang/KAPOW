@@ -8,28 +8,31 @@ import { useNavbarTheme } from '@/context/NavbarThemeContext';
 const slides = [
   {
     id: 1,
-    title: 'Pure Flavor, Zero Nicotine',
-    subtitle: 'KAPOW 85K delivers 85,000 puffs of pure satisfaction',
+    title: 'Pure Flavour, Engineered',
+    subtitle: 'The KAPOW 85K delivers 85,000 puffs of crafted precision',
     cta: 'Explore Product',
     link: '/product/kapow-85k',
+    image: '/images/Banner1.png',
     bg: 'linear-gradient(135deg, #1e3925 0%, #357d57 100%)',
     isDark: true,
   },
   {
     id: 2,
-    title: 'Eco-Friendly Design, Reducing Waste',
-    subtitle: 'Sustainable materials, recyclable packaging, for the planet',
-    cta: 'Learn About Our Commitment',
-    link: '/about',
+    title: 'Crafted for Every Puff',
+    subtitle: 'Dual mesh coils, smart control, and a design that feels premium',
+    cta: 'See Features',
+    link: '/product/kapow-85k#features',
+    image: '/images/Banner2.png',
     bg: 'linear-gradient(135deg, #2d5634 0%, #86b99a 100%)',
     isDark: true,
   },
   {
     id: 3,
-    title: '12 Flavors To Choose From',
-    subtitle: 'From crisp mint to vibrant fruit blends, find your perfect match',
-    cta: 'View All Flavors',
+    title: '12 Flavours. One Device.',
+    subtitle: 'From crisp mint to vibrant fruit — find your signature',
+    cta: 'View All Flavours',
     link: '/product/kapow-85k#flavours',
+    image: '/images/Banner3.png',
     bg: 'linear-gradient(135deg, #924430 0%, #d08560 100%)',
     isDark: true,
   },
@@ -238,31 +241,48 @@ export function BannerCarousel() {
       <div className="relative h-[75vh] min-h-[480px] w-full">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
-            key={currentIndex}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.6, ease: 'easeInOut' }}
-            className="absolute inset-0 flex items-center justify-center px-4"
-            style={{ background: slides[currentIndex].bg }}
-          >
-            <div className="text-center max-w-3xl text-white">
-              <h2 className="text-display-md font-bold mb-4">
-                {slides[currentIndex].title}
-              </h2>
-              <p className="text-lg md:text-xl mb-8 opacity-90">
-                {slides[currentIndex].subtitle}
-              </p>
-              <a
-                href={slides[currentIndex].link}
-                className="inline-block bg-white text-forest-800 font-semibold px-8 py-3 rounded-xl hover:shadow-lg transition-all hover:scale-105"
-              >
-                {slides[currentIndex].cta} →
-              </a>
-            </div>
-          </motion.div>
+  key={currentIndex}
+  custom={direction}
+  variants={slideVariants}
+  initial="enter"
+  animate="center"
+  exit="exit"
+  transition={{ duration: 0.6, ease: 'easeInOut' }}
+  className="absolute inset-0 flex items-center justify-center px-4"
+>
+  {/* 背景层 - 图片或渐变 */}
+  {slides[currentIndex].image ? (
+    <img
+      src={slides[currentIndex].image}
+      alt={slides[currentIndex].title}
+      className="absolute inset-0 w-full h-full object-cover"
+    />
+  ) : (
+    <div
+      className="absolute inset-0"
+      style={{ background: slides[currentIndex].bg }}
+    />
+  )}
+
+  {/* 深色遮罩 - 让文字在图片上清晰可见 */}
+  <div className="absolute inset-0 bg-gradient-to-t from-forest-900/75 via-forest-900/40 to-forest-900/50" />
+
+  {/* 内容层 */}
+  <div className="relative z-10 text-center max-w-3xl text-white">
+    <h2 className="text-display-md font-bold mb-4">
+      {slides[currentIndex].title}
+    </h2>
+    <p className="text-lg md:text-xl mb-8 opacity-90">
+      {slides[currentIndex].subtitle}
+    </p>
+    <a
+      href={slides[currentIndex].link}
+      className="inline-block bg-white text-forest-800 font-semibold px-8 py-3 rounded-xl hover:shadow-lg transition-all hover:scale-105"
+    >
+      {slides[currentIndex].cta} →
+    </a>
+  </div>
+</motion.div>
         </AnimatePresence>
 
         {/* 左右翻页按钮 */}

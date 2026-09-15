@@ -157,14 +157,22 @@ function EventCard({ event, index }: { event: typeof events[0]; index: number })
     >
       <Link
   to={`/events/${event.slug}`}
-  className="group block relative aspect-[4/5] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+  className="group block relative h-[420px] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
 >
-        {/* 背景 */}
-        <div
-          className="absolute inset-0 transition-transform duration-700 group-hover:scale-110"
-          style={{ background: event.heroGradient }}
-        />
-
+  {/* 背景 - 图片优先，无图片时用渐变兜底 */}
+  {event.image ? (
+    <img
+      src={event.image}
+      alt={event.title}
+      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+      loading="lazy"
+    />
+  ) : (
+    <div
+      className="absolute inset-0 transition-transform duration-700 group-hover:scale-110"
+      style={{ background: event.heroGradient }}
+    />
+  )}
         {/* 遮罩 */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
 

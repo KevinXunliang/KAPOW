@@ -532,7 +532,7 @@ function ResultModal({
       title: 'Authentic Product',
       subtitle: 'Verification successful',
       message:
-        'Your product is verified as authentic. Thank you for choosing KAPOW — enjoy pure flavour, zero nicotine.',
+        'Your product is verified as authentic. Thank you for choosing KAPOW — enjoy crafted flavour and premium performance.',
       primaryLabel: 'Done',
       showSecondary: false,
     },
