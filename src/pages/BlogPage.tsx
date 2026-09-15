@@ -23,7 +23,7 @@ export function BlogPage() {
           <SectionHeading
             eyebrow="Learn & Explore"
             title="The KAPOW Journal"
-            subtitle="Insights on clean living, sustainability, flavour science, and the technology behind KAPOW."
+            subtitle="Insights on craftsmanship, product knowledge, flavour, and the technology behind KAPOW."
           />
         </div>
       </section>

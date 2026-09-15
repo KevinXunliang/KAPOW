@@ -68,7 +68,7 @@ export function EventsPage() {
             transition={{ delay: 0.2 }}
             className="mt-6 text-lg text-forest-500 leading-relaxed max-w-2xl mx-auto"
           >
-            Limited drops, sustainability initiatives, partnerships — explore our latest
+            Limited drops, community events, partnerships — explore our latest
             brand events and campaigns.
           </motion.p>
         </div>

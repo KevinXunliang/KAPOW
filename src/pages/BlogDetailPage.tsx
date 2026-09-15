@@ -212,7 +212,7 @@ export function BlogDetailPage() {
             Ready to explore KAPOW?
           </h2>
           <p className="text-forest-500 mb-6">
-            Discover our non-nicotine, eco-conscious devices.
+            Discover our premium, crafted devices.
           </p>
           <Link
             to="/product/kapow-85k"

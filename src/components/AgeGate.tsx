@@ -31,7 +31,7 @@ export function AgeGate() {
         </div>
         <h2 className="text-2xl font-bold text-forest-800 mb-3">Welcome to KAPOW</h2>
         <p className="text-forest-600 text-sm leading-relaxed mb-6">
-          KAPOW is a non-nicotine, eco-conscious vape brand intended for adults of legal age.
+          KAPOW is a premium vape brand intended for adults of legal age.
           Please confirm you are 21 years or older to enter.
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
@@ -50,7 +50,7 @@ export function AgeGate() {
           </button>
         </div>
         <p className="mt-6 text-xs text-forest-400">
-          This product contains no nicotine. Intended for adult use only. Keep out of reach of children.
+          Intended for adult use only. Keep out of reach of children.
         </p>
       </div>
     </div>

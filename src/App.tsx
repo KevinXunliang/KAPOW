@@ -33,10 +33,10 @@ function App() {
           <Route path="/download" element={<DownloadPage />} />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/events/:slug" element={<EventDetailPage />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-          <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms" element={<TermsOfServicePage />} />
           <Route path="/age-policy" element={<AgePolicyPage />} />
-          <Route path="/warranty-policy" element={<WarrantyPolicyPage />} />
+          <Route path="/warranty" element={<WarrantyPolicyPage />} />
           <Route path="*" element={<HomePage />} />
         </Routes>
       </Layout>

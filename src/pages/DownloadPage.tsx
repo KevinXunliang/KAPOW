@@ -73,7 +73,7 @@ const products: ProductDownload[] = [
   {
     id: 1,
     name: 'KAPOW 85K',
-    tagline: '85,000 puffs · 12 flavours · Zero nicotine',
+    tagline: '85,000 puffs · 12 flavours · Crafted precision',
     image: '/images/image.png',
     accent: 'from-moss-100 to-sage-100',
     status: 'available',
