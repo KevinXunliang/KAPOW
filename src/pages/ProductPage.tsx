@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Sparkles, Layers, Zap, ShieldCheck, ArrowRight, ChevronDown } from 'lucide-react';
+import { MapPin, Sparkles, ShieldCheck, ChevronDown } from 'lucide-react';
 import { ProductRender } from '@/components/ProductRender';
 import { SectionHeading, Reveal } from '@/components/SectionHeading';
 import { Icon } from '@/components/Icon';
@@ -100,16 +100,21 @@ function MainKvSection() {
 }
 
 // ============================================================
-// 第二屏：Key Features - 不规则图文网格
+// 第二屏：Key Features - 错落式 Bento 布局（12 列网格）
 // ============================================================
 function KeyFeaturesSection() {
-  const featureLayouts: { col: string; row: string; size: 'large' | 'medium' | 'small' }[] = [
-    { col: 'lg:col-span-2 lg:row-span-2', row: '', size: 'large' },
-    { col: 'lg:col-span-1', row: '', size: 'small' },
-    { col: 'lg:col-span-1', row: '', size: 'small' },
-    { col: 'lg:col-span-1', row: '', size: 'medium' },
-    { col: 'lg:col-span-1', row: '', size: 'medium' },
-    { col: 'lg:col-span-2', row: '', size: 'large' },
+  // 12 列网格，左右左右交替宽度
+  const featureLayouts: {
+    col: string;
+    size: 'large' | 'medium';
+    minHeight: string;
+  }[] = [
+    { col: 'lg:col-span-7', size: 'large', minHeight: 'min-h-[260px]' },
+    { col: 'lg:col-span-5', size: 'medium', minHeight: 'min-h-[260px]' },
+    { col: 'lg:col-span-5', size: 'medium', minHeight: 'min-h-[260px]' },
+    { col: 'lg:col-span-7', size: 'large', minHeight: 'min-h-[260px]' },
+    { col: 'lg:col-span-6', size: 'medium', minHeight: 'min-h-[260px]' },
+    { col: 'lg:col-span-6', size: 'medium', minHeight: 'min-h-[260px]' },
   ];
 
   return (
@@ -121,10 +126,16 @@ function KeyFeaturesSection() {
           subtitle="Every detail engineered for a better experience — from 85,000 puffs to worry-free fast charging."
         />
 
-        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 auto-rows-[200px] lg:auto-rows-[220px]">
+        {/* 12 列网格，左右交替宽度 */}
+        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 lg:gap-5">
           {features.map((feature, i) => {
-            const layout = featureLayouts[i] || { col: 'lg:col-span-1', row: '', size: 'small' };
+            const layout = featureLayouts[i] || {
+              col: 'lg:col-span-6',
+              size: 'medium',
+              minHeight: 'min-h-[260px]',
+            };
             const isLarge = layout.size === 'large';
+            const isMedium = layout.size === 'medium';
 
             return (
               <motion.div
@@ -134,28 +145,49 @@ function KeyFeaturesSection() {
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
                 className={`
-                  ${layout.col} relative overflow-hidden rounded-2xl
-                  bg-white border border-sage-100 hover:border-moss-300
-                  hover:shadow-xl hover:shadow-moss-600/5
+                  ${layout.col} ${layout.minHeight}
+                  relative overflow-hidden rounded-3xl
+                  bg-white border border-sage-100
+                  hover:border-moss-300 hover:shadow-xl hover:shadow-moss-600/5
                   transition-all duration-300 group
-                  p-6 lg:p-7 flex flex-col justify-between
+                  p-6 lg:p-8 flex flex-col justify-between
                 `}
               >
-                <div
-                  className={`
-                    rounded-2xl bg-moss-100 text-moss-600 flex items-center justify-center
-                    group-hover:bg-moss-600 group-hover:text-cream-50 transition-colors
-                    ${isLarge ? 'w-14 h-14' : 'w-12 h-12'}
-                  `}
-                >
-                  <Icon name={feature.icon} className={isLarge ? 'w-7 h-7' : 'w-6 h-6'} />
+                {/* 顶部：图标 + 序号 */}
+                <div className="flex items-start justify-between">
+                  <div
+                    className={`
+                      rounded-2xl flex items-center justify-center
+                      bg-moss-100 text-moss-600
+                      group-hover:bg-moss-600 group-hover:text-cream-50
+                      transition-colors duration-300
+                      ${isLarge ? 'w-16 h-16' : isMedium ? 'w-14 h-14' : 'w-12 h-12'}
+                    `}
+                  >
+                    <Icon
+                      name={feature.icon}
+                      className={isLarge ? 'w-8 h-8' : isMedium ? 'w-7 h-7' : 'w-6 h-6'}
+                    />
+                  </div>
+
+                  {/* 序号装饰 */}
+                  <span className="font-mono text-xs text-forest-300 tracking-widest">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
                 </div>
 
+                {/* 底部：标题 + 描述 */}
                 <div>
                   <h3
                     className={`
-                      font-bold text-forest-800 leading-snug mb-2
-                      ${isLarge ? 'text-xl lg:text-2xl' : 'text-base lg:text-lg'}
+                      font-bold text-forest-800 leading-snug mb-3
+                      ${
+                        isLarge
+                          ? 'text-xl lg:text-2xl'
+                          : isMedium
+                          ? 'text-lg lg:text-xl'
+                          : 'text-base lg:text-lg'
+                      }
                     `}
                   >
                     {feature.title}
@@ -170,7 +202,8 @@ function KeyFeaturesSection() {
                   </p>
                 </div>
 
-                <div className="absolute top-0 right-0 w-20 h-20 bg-moss-100/30 rounded-bl-full rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                {/* 装饰角标 */}
+                <div className="absolute top-0 right-0 w-24 h-24 bg-moss-100/30 rounded-bl-full rounded-tr-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
               </motion.div>
             );
           })}
@@ -188,7 +221,8 @@ function FlavourCollectionSection() {
   const [activeFlavour, setActiveFlavour] = useState(0);
   const current = flavours[activeFlavour];
 
-  const filtered = filter === 'All' ? flavours : flavours.filter((f) => f.category === filter);
+  const filtered =
+    filter === 'All' ? flavours : flavours.filter((f) => f.category === filter);
 
   return (
     <section id="flavours" className="scroll-mt-20">
@@ -224,7 +258,7 @@ function FlavourCollectionSection() {
         </div>
       </div>
 
-      {/* 当前选中口味 */}
+      {/* 当前选中口味的大图展示 */}
       <div className="py-16 bg-cream-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
@@ -267,7 +301,10 @@ function FlavourCollectionSection() {
 
           {/* 所有口味网格 */}
           <AnimatePresence mode="popLayout">
-            <motion.div layout className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            <motion.div
+              layout
+              className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
+            >
               {filtered.map((flavour, i) => {
                 const globalIndex = flavours.indexOf(flavour);
                 return (
@@ -450,7 +487,9 @@ function PackagingSpecsSection() {
 
               <div className="absolute top-6 left-6 inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full border border-sage-200">
                 <Sparkles className="w-3.5 h-3.5 text-moss-600" />
-                <span className="text-xs font-medium text-forest-700">Premium Quality</span>
+                <span className="text-xs font-medium text-forest-700">
+                  Premium Quality
+                </span>
               </div>
             </div>
           </Reveal>
@@ -458,7 +497,9 @@ function PackagingSpecsSection() {
           {/* 规格表格 */}
           <Reveal delay={0.15}>
             <div>
-              <h3 className="text-xl font-bold text-forest-800 mb-6">Specifications</h3>
+              <h3 className="text-xl font-bold text-forest-800 mb-6">
+                Specifications
+              </h3>
               <dl className="space-y-0 bg-cream-50 rounded-2xl border border-sage-200 overflow-hidden">
                 {specs.map((spec, i) => (
                   <div
@@ -467,7 +508,9 @@ function PackagingSpecsSection() {
                       i % 2 === 0 ? 'bg-cream-50' : 'bg-white'
                     }`}
                   >
-                    <dt className="text-sm font-medium text-forest-600">{spec.label}</dt>
+                    <dt className="text-sm font-medium text-forest-600">
+                      {spec.label}
+                    </dt>
                     <dd className="text-sm font-semibold text-forest-800 text-right">
                       {spec.value}
                     </dd>
@@ -534,7 +577,10 @@ function FlavourCard({
       }`}
       aria-pressed={active}
     >
-      <div className="h-32 relative overflow-hidden" style={{ background: flavour.gradient }}>
+      <div
+        className="h-32 relative overflow-hidden"
+        style={{ background: flavour.gradient }}
+      >
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
