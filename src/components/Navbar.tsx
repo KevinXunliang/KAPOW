@@ -371,38 +371,36 @@ export function Navbar() {
                 // ================================================
                 // 其他下拉（Support等）：文字菜单，增强悬停交互
                 // ================================================
-                <div className="flex items-center gap-6 py-2 flex-wrap">
-                  {activeDropdown.children.map((child) => {
-                    const isChildActive = isActive(child.path || '');
-                    return (
-                      <Link
-                        key={child.label}
-                        to={child.path || '#'}
-                        className={`
-                          group relative flex items-center gap-2 px-3 py-1.5 rounded-lg
-                          text-sm transition-all duration-200
-                          ${isChildActive
-                            ? 'text-moss-600 font-semibold bg-moss-50/80'
-                            : 'text-forest-600 hover:text-moss-600 hover:font-medium hover:bg-moss-50/50'
-                          }
-                        `}
-                      >
-                        {/* 悬停指示圆点 */}
-                        <span
-                          className={`
-                            w-1.5 h-1.5 rounded-full transition-all duration-200
-                            ${isChildActive
-                              ? 'bg-moss-500 opacity-100'
-                              : 'opacity-0 group-hover:opacity-100 group-hover:bg-moss-400'
-                            }
-                          `}
-                        />
-                        {child.label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              )}
+                <div className="flex items-center gap-8 py-2 flex-wrap">
+    {activeDropdown.children.map((child) => {
+      const isChildActive = isActive(child.path || '');
+      return (
+        <Link
+          key={child.label}
+          to={child.path || '#'}
+          className={`
+            group relative py-2 text-sm transition-colors duration-200
+            ${isChildActive
+              ? 'text-moss-600 font-semibold'
+              : 'text-forest-600 hover:text-moss-600'
+            }
+          `}
+        >
+          {child.label}
+
+          {/* 下划线 - 激活时全宽，悬停时展开 */}
+          <span
+            className={`
+              absolute bottom-0 left-0 h-0.5 rounded-full bg-moss-500
+              transition-all duration-300 ease-out
+              ${isChildActive ? 'w-full' : 'w-0 group-hover:w-full'}
+            `}
+          />
+        </Link>
+      );
+    })}
+  </div>
+)}
             </div>
           </div>
         </div>
